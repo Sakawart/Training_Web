@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="left-panel">
+        <div id="viewDiv" style="height: 100vh;"></div>
+    </div>
+    <div class="right-panel">
+        <div class="button-group">
+            <button class="button-red" (click)="clearAll()">Clear All</button>
+            <button 
+                class="button-blue" 
+                (click)="startRoute()" 
+                [disabled]="graphics.length < 2">Start Route</button>
+        </div>
+        <div class="directions">
+            <ul class="ul-container">
+                <li *ngFor="let direction of routeDirections; let i = index"
+                    [ngClass]="{'highlighted': selectedDirectionIndex === i}"
+                    (click)="highlightDirection(direction, i)">
+                    {{ i + 1 }}. {{ direction.text }} ({{ direction.length.toFixed(2) }} miles)
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css">

@@ -1,0 +1,10 @@
+
+  /* ปรับแต่ง Swipe widget */
+  .esri-swipe {
+    z-index: 10; /* ทำให้ Swipe widget อยู่ด้านบนสุด */
+  }
+  
+  .esri-swipe-bar {
+    background-color: rgba(0, 0, 0, 0.5); /* สีของแถบเลื่อน */
+  }
+  

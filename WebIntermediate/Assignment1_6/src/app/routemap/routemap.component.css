@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+}
+
+.left-panel {
+    flex: 3;
+}
+
+.right-panel {
+    flex: 1;
+    padding: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* ระยะห่างระหว่างปุ่ม */
+    margin-bottom: 10px;
+}
+
+.button-red {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-blue {
+    background-color: #4d94ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-blue:disabled {
+    background-color: #cccccc; /* สีปุ่มเมื่อ disabled */
+    cursor: not-allowed;
+}
+
+.directions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ul-container {
+    overflow-y: auto;
+    height: 85vh;
+}
+
+.directions li {
+    padding: 5px 10px;
+    margin: 5px 0;
+    /* border: 1px solid #ccc;
+    border-radius: 5px; */
+    cursor: pointer;
+}
+
+.directions li.highlighted {
+    background-color: #f0f8ff;
+    border-color: #4d94ff;
+    font-weight: bold;
+}

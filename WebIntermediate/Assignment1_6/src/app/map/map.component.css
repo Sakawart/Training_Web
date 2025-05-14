@@ -1,0 +1,60 @@
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.map-panel {
+    position: relative;
+    height: 100%;
+    background-color: #ffffff;
+    border: 1px solid #ddd; /* กำหนดกรอบของแผนที่ */
+    border-radius: 5px;     /* มุมมนของกรอบ */ 
+    margin: 5px; 
+}
+
+.container {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    margin: 5px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    /* กำหนดมุมขอบให้มน */
+}
+
+.table-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    width: 40vw;
+}
+
+.highlight {
+    background-color: #ff8551;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid #570909;
+    padding: 8px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid #6f6f6f;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f22d2d;
+}

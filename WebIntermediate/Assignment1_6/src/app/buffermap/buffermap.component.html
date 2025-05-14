@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buffer Map</title>
+    <!-- ArcGIS CSS -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css">
+    <!-- Angular Styles (ถ้ามี) -->
+</head>
+
+<body>
+    <!-- ส่วนแผนที่ -->
+    <div class="bufferMap" #mapView style="width: 60%; height: 100vh; float: left;"></div>
+
+    <!-- ส่วนรายการเมือง -->
+    <div class="container" style="width: auto; height: 100vh; float: right; overflow-y: auto;">
+        <ul class="ul-container">
+            <!-- แสดงชื่อเมืองจาก cityName -->
+            <li *ngFor="let city of cities" (click)="highlightCity(city)" style="cursor: pointer;">
+                {{ city.cityName.includes('Incident - ') ? city.cityName.replace('Incident - ', '').trim() : city.cityName }}
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

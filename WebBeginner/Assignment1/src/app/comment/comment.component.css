@@ -1,0 +1,22 @@
+.container-add {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px; /* ลด padding ให้ชิดมากขึ้น */
+    width: 20%;
+}
+
+.container-add h2, 
+.container-add form div {
+    margin: 0; /* ลด margin ภายใน container */
+    padding: 0; /* ลด padding ภายใน container */
+}
+
+.container-add form div input,
+.container-add form div textarea {
+    margin: 2px 0; /* ปรับ margin ของ input และ textarea */
+}
+
+.h2 {
+    margin: 0; /* ลด margin ให้ชิดขอบมากขึ้น */
+    padding: 0; /* ลด padding ให้ชิดขอบมากขึ้น */
+}

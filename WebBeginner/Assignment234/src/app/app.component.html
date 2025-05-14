@@ -1,0 +1,128 @@
+<div class="app-container">
+  <!-- ตัวคอนเทนเนอร์แผนที่ -->
+  <div id="mapViewDiv" style="height: 100vh;"></div>
+
+  <!-- คอมโพเนนต์ Locator (อาจไม่จำเป็น ขึ้นอยู่กับความต้องการ UI/UX ของคุณ) -->
+  <app-locator [formTitle]="'Locator'" (locate)="onLocate($event)"></app-locator>
+</div>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Identify | Sample | ArcGIS Maps SDK for JavaScript 4.31</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .esri-popup .esri-popup-header .esri-title {
+      font-size: 18px;
+      font-weight: bolder;
+    }
+
+    .esri-popup .esri-popup-body .esri-popup-content {
+      font-size: 14px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.31/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/MapImageLayer",
+      "esri/rest/identify",
+      "esri/rest/support/IdentifyParameters"
+    ], function (Map, MapView, MapImageLayer, identify, IdentifyParameters) {
+      let params;
+
+      // URL ของบริการแผนที่ที่เราจะใช้ทำการ Identify
+      const identifyURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer";
+
+      // เพิ่ม MapImageLayer ที่ใช้บริการแผนที่ Identify
+      const identifyLayer = new MapImageLayer({
+        url: identifyURL,
+        opacity: 0.5
+      });
+
+      const map = new Map({
+        basemap: "osm"
+      });
+      map.add(identifyLayer);
+
+      const view = new MapView({
+        map: map,
+        container: "mapViewDiv", // ตรวจสอบให้ตรงกับ ID ของคอนเทนเนอร์แผนที่
+        center: [-117.23502, 34.23911],
+        zoom: 13
+      });
+
+      view.when(function () {
+        view.on("click", executeIdentify); // ตั้งค่าการคลิกบนแผนที่
+        params = new IdentifyParameters();
+        params.tolerance = 3;
+        params.layerIds = [3];
+        params.layerOption = "top";
+        params.width = view.width;
+        params.height = view.height;
+      });
+
+      function executeIdentify(event) {
+        params.geometry = event.mapPoint;
+        params.mapExtent = view.extent;
+        document.getElementById("mapViewDiv").style.cursor = "wait";
+
+        identify
+          .identify(identifyURL, params)
+          .then(function (response) {
+            const results = response.results;
+            return results.map(function (result) {
+              let feature = result.feature;
+              let layerName = result.layerName;
+
+              feature.attributes.layerName = layerName;
+              if (layerName === "states") {
+                feature.popupTemplate = {
+                  title: "ข้อมูลของรัฐ",
+                  content: `
+                      <b>ชื่อรัฐ:</b> {STATE_NAME}
+                      <br><b>ประชากรในปี 2007:</b> {POP2007}
+                      <br><b>พื้นที่:</b> {Shape_Area} 
+                      `
+                };
+              }
+
+              return feature;
+            });
+          })
+          .then(showPopup); // ส่ง feature ที่ได้ไปที่ฟังก์ชันแสดง Popup
+
+        function showPopup(response) {
+          if (response.length > 0) {
+            view.openPopup({
+              features: response,
+              location: event.mapPoint
+            });
+          }
+          document.getElementById("mapViewDiv").style.cursor = "auto";
+        }
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div id="mapViewDiv"></div>
+</body>
+
+</html>

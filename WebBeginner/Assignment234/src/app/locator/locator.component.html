@@ -1,0 +1,43 @@
+<div class="locator">
+    <h2>{{ formTitle }}</h2>
+  
+    <form #locatorForm="ngForm" (ngSubmit)="onLocate()">
+      <!-- Latitude Field -->
+      <label for="latitude">Latitude:</label>
+      <input
+        type="number"
+        id="latitude"
+        [(ngModel)]="latitude"
+        name="latitude"
+        [min]="-90"
+        [max]="90"
+        required
+        #latitudeInput="ngModel"
+      />
+      <!-- Validation Message for Latitude -->
+      <div *ngIf="latitudeInput.invalid && latitudeInput.touched">
+        <small class="error">Latitude must be between -90 and 90</small>
+      </div>
+  
+      <!-- Longitude Field -->
+      <label for="longitude">Longitude:</label>
+      <input
+        type="number"
+        id="longitude"
+        [(ngModel)]="longitude"
+        name="longitude"
+        [min]="-180"
+        [max]="180"
+        required
+        #longitudeInput="ngModel"
+      />
+      <!-- Validation Message for Longitude -->
+      <div *ngIf="longitudeInput.invalid && longitudeInput.touched">
+        <small class="error">Longitude must be between -180 and 180</small>
+      </div>
+  
+      <!-- Locate Button -->
+      <button type="submit" [disabled]="!locatorForm.valid" pButton label="Locate" icon="pi pi-map">Locate</button>
+    </form>
+  </div>
+  
